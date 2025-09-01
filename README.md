@@ -1,80 +1,49 @@
-# Docker Express MongoDB Example
+# Docker Express App
 
-This project demonstrates a Docker setup with Express.js and MongoDB. It shows how to:
-1. Containerize a Node.js/Express application
-2. Add MongoDB as a service
-3. Configure communication between containers
-4. Set up volume persistence for database data
-5. Configure watch mode for development
+A simple Express.js app with MongoDB, containerized using Docker.
 
-## Project Structure
+## What's included
 
-```
-backend/
-├── server.js           # Express application with MongoDB integration
-├── package.json        # Node.js dependencies
-├── Dockerfile          # Instructions to build the Express app container
-├── compose.yaml        # Docker Compose configuration for multi-container setup
-└── README.md           # Documentation
-```
+- Basic Express server
+- MongoDB connection
+- CRUD operations for items
+- Docker setup with compose
 
-## Features
-
-- **Express.js API** with CRUD operations
-- **MongoDB** integration with Mongoose
-- **Docker** containerization
-- **Docker Compose** for multi-container orchestration
-- **Volume Persistence** for database data
-- **Watch Mode** for development
-- **Health Check** endpoint
-
-## Commands Used
-
-### Setup and Development
+## How to run
 
 ```bash
-# Initialize Docker project
-docker init
-
-# Build and run with watch mode (for development)
-docker compose up --watch --build
-
-# Build and run without watch mode
+# Start everything
 docker compose up --build
 
-# Run in detached mode
-docker compose up -d
+# Run with watch mode for development
+docker compose up --watch
 
 # Stop containers
 docker compose down
 ```
 
-## API Endpoints
+## Endpoints
 
-- `GET /` - System information
-- `GET /api/items` - Get all items from database
-- `GET /api/items/:id` - Get specific item by ID
-- `POST /api/items` - Create a new item (requires JSON body with "name" field)
-- `DELETE /api/items/:id` - Delete an item by ID
-- `GET /health` - Check system health including database connection
+- GET / - Basic info about the server
+- GET /api/items - Get all items
+- POST /api/items - Add new item (need name in JSON)
+- GET /api/items/:id - Get one item
+- DELETE /api/items/:id - Delete an item
+- GET /health - Check if everything is working
 
-## MongoDB Details
+## Docker setup
 
-- **Connection String**: `mongodb://mongo:27017/myapp`
-- **Container**: Uses official MongoDB 7.0 image
-- **Persistence**: Data stored in named volume `mongo-data`
-- **Port**: Available on host at `localhost:27017`
+- Express app container runs on port 3000
+- MongoDB container with persistent storage
+- Both containers connected in the same network
 
-## Screenshots
+## Commands I used
 
-<img width="3199" height="1999" alt="image" src="https://github.com/user-attachments/assets/7dc0778a-cb1b-4a38-9d69-13b20b0ea0b9" />
-<img width="1947" height="777" alt="image" src="https://github.com/user-attachments/assets/14af14a4-adb8-4f64-b4bf-ea4f6d07e051" />
+- `docker init` - Set up Docker files
+- `docker compose up --build` - Build and run everything
+- `docker compose up --watch` - Run with auto-reload for development
+
+<img width="3199" height="1999" alt="image" src="https://github.com/user-attachments/assets/3ac7c0a9-34da-4966-88b5-e5afe3f3192e" />
+<img width="2547" height="1489" alt="image" src="https://github.com/user-attachments/assets/ad7ac506-ac98-4c4c-8624-70bf9199cbdc" />
 
 
-
-## Notes
-
-- The application binds to `0.0.0.0` to allow connections from outside the container
-- MongoDB runs in a separate container and is accessible via the service name `mongo`
-- Data persists between container restarts due to the volume configuration
-- Watch mode allows changes to be reflected immediately during development
